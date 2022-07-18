@@ -85,7 +85,7 @@
 # 1. 企业实训复现指导手册——基于华为ModelArts平台的OpenPose模型的训练和推理
 
 # 2. **需要先看的**
-是在华为MindSpore的Gitee中的OpenPose代码上改的哈！贴个[MindSpore的Gitee仓库链接](https://gitee.com/mindspore/)。然后[用到的OpenPose的代码的链接](https://gitee.com/mindspore/models/tree1.5.0/official/cv/openpose)也贴在这儿啦！
+是在华为MindSpore的Gitee中的OpenPose代码上改的哈！贴个[MindSpore的Gitee仓库链接](https://gitee.com/mindspore/)。然后[用到的OpenPose的代码的链接](https://gitee.com/mindspore/models/tree/v1.5.0/official/cv/openpose)也贴在这儿啦！
 
 所有的相对路都默认当前工作目录为项程文件夹的根目录
 

@@ -221,7 +221,7 @@
 </ul>
 <h1 id="1-企业实训复现指导手册基于华为modelarts平台的openpose模型的训练和推理">1. 企业实训复现指导手册——基于华为ModelArts平台的OpenPose模型的训练和推理</h1>
 <h1 id="2-需要先看的">2. <strong>需要先看的</strong></h1>
-<p>是在华为MindSpore的Gitee中的OpenPose代码上改的哈！贴个<a href="https://gitee.com/mindspore/">MindSpore的Gitee仓库链接</a>。然后<a href="https://gitee.com/mindspore/models/tree1.5.0/official/cv/openpose">用到的OpenPose的代码的链接</a>也贴在这儿啦！</p>
+<p>是在华为MindSpore的Gitee中的OpenPose代码上改的哈！贴个<a href="https://gitee.com/mindspore/">MindSpore的Gitee仓库链接</a>。然后<a href="https://gitee.com/mindspore/models/tree/v1.5.0/official/cv/openpose">用到的OpenPose的代码的链接</a>也贴在这儿啦！</p>
 <p>所有的相对路都默认当前工作目录为项程文件夹的根目录</p>
 <h1 id="3-代码说明">3. <strong>代码说明</strong></h1>
 <h2 id="31-训练代码">3.1. <strong>训练代码</strong></h2>
@@ -320,7 +320,7 @@ callback_list = [MyLossMonitor(), time_cb, ckpoint_cb]
 <hr>
 <h3 id="321-上帝视角审视代码整体上看">3.2.1. <strong>“上帝视角”“审视”代码——整体上看</strong></h3>
 <p>代码中的所有方法如下图所示。其中，在<code>Gitee</code>上的<code>OpenPose</code>的<code>eval.py</code>代码的基础上，做了改动的部分方法为下图中红框框起来的方法。因此，此处不再对原代码进行介绍（原代码的介绍见<a href="https://gitee.com/mindspore/models/tree/v1.5.0/official/cv/openpose/eval.py">MindSpore的Gitee仓库中OpenPose的文档</a>），只对“我增加的部分”以及“原代码中和我修改内容密切相关的”这两个板块进行介绍。</p>
-<p><img src="file:///e:\Data\Personals\NortheasternUniversity\3-3-\大数据班的实训\大作业\readme.md\images\%E4%BB%A3%E7%A0%81%E4%B8%AD%E7%9A%84%E6%89%80%E6%9C%89%E6%96%B9%E6%B3%95.png" alt="代码中的所有方法"></p>
+<p><img src="file:///e:\Data\Personals\NortheasternUniversity\3-3-\大数据班的实训\小作业\readme.md-上传到github\images\%E4%BB%A3%E7%A0%81%E4%B8%AD%E7%9A%84%E6%89%80%E6%9C%89%E6%96%B9%E6%B3%95.png" alt="代码中的所有方法"></p>
 <p><strong>个人喜欢的阅读代码的顺序是，从入口主函数开始读，不看封装的方法的具体逻辑，待梳理好整体的思路后，再进入方法体内部阅读详细的逻辑。                           也欢迎交流讨论，也一直在找更好的方法哈哈哈哈</strong></p>
 <p>所以，此处先介绍<code>val()</code>方法，再介绍其他封装后的方法体内部信息。</p>
 <h3 id="322-入口主函数val方法">3.2.2. <strong>入口主函数val()方法</strong></h3>
@@ -345,7 +345,7 @@ callback_list = [MyLossMonitor(), time_cb, ckpoint_cb]
 <p>注释区分两种运行环境](./images/注释区分两种运行环境.png</p>
 <h4 id="3222-步骤2复制文件">3.2.2.2. 步骤2：复制文件</h4>
 <p>我加的这一步内容，主要目的是，将训练好的用于推理的ckpt模型文件从OBS中复制到ModelArts的训练环境下，将测试集的图片从OBS复制到ModelArts的训练环境下。代码当然大概就是像下面这个亚子。<strong>【然后基本都封装好了，不需要改这一块的代码，像带relative带obs结尾的变量名，都在步骤1中直接修改即可。】</strong></p>
-<p><img src="file:///e:\Data\Personals\NortheasternUniversity\3-3-\大数据班的实训\大作业\readme.md\images\%E6%AD%A5%E9%AA%A42%EF%BC%9A%E5%A4%8D%E5%88%B6%E6%96%87%E4%BB%B6%E7%9A%84%E4%BB%A3%E7%A0%81.png" alt="步骤2：复制文件的代码"></p>
+<p><img src="file:///e:\Data\Personals\NortheasternUniversity\3-3-\大数据班的实训\小作业\readme.md-上传到github\images\%E6%AD%A5%E9%AA%A42%EF%BC%9A%E5%A4%8D%E5%88%B6%E6%96%87%E4%BB%B6%E7%9A%84%E4%BB%A3%E7%A0%81.png" alt="步骤2：复制文件的代码"></p>
 <h4 id="3223-步骤3加载模型读取图片调用模型进行推理">3.2.2.3. 步骤3：加载模型、读取图片、调用模型进行推理</h4>
 <p>我加的这一步呢就比较简单，就是正常的加载模型，然后用os.listdir()列举文件夹下的所有图片，最后遍历每个文件并调用模型去推理。
 杂在对方法infer_one_pic()的封装上，封装的说明见<a href="#223-%E4%B8%AA%E4%BA%BA%E5%B0%81%E8%A3%85%E7%9A%84infer_one_pic%E6%96%B9%E6%B3%95">2.2.3. 个人封装的infer_one_pic方法</a>**</p>
@@ -616,11 +616,11 @@ result_path = train_path + <span class="hljs-string">&#x27;/&#x27;</span> + <spa
 <p>此步骤可以省略，我设置的默认是2个epoch。</p>
 <h4 id="4113-步骤3上传到obs">4.1.1.3. 步骤3：上传到OBS</h4>
 <p>打开OBS Browser，在地址栏输入<code>obs://skp-har-neu-xwt/skp-har/code/models-v1.5.0/official/cv/openpose_multi_save2obs_for_recurrence/</code>，然后回车，即可进入目标文件夹。 <strong>（🔺注意：路径的末尾一定要有反斜杠符号/！！！！！！！）</strong> 文件夹的内容大致如下图所示：</p>
-<p><img src="file:///e:\Data\Personals\NortheasternUniversity\3-3-\大数据班的实训\大作业\readme.md\images\%E8%AE%AD%E7%BB%83%E6%96%B9%E5%BC%8F1%EF%BC%9AOBS%E7%9B%AE%E6%A0%87%E6%96%87%E4%BB%B6%E5%A4%B9%E7%9A%84%E5%86%85%E5%AE%B9.png" alt="训练方式1：OBS目标文件夹的内容"></p>
+<p><img src="file:///e:\Data\Personals\NortheasternUniversity\3-3-\大数据班的实训\小作业\readme.md-上传到github\images\%E8%AE%AD%E7%BB%83%E6%96%B9%E5%BC%8F1%EF%BC%9AOBS%E7%9B%AE%E6%A0%87%E6%96%87%E4%BB%B6%E5%A4%B9%E7%9A%84%E5%86%85%E5%AE%B9.png" alt="训练方式1：OBS目标文件夹的内容"></p>
 <p>进入解压所得到的名为<code>openpose_multi_save2obs_for_recurrence 单卡不接续训练且直接保存到OBS</code>的新文件夹，选中该文件夹内的所有文件，左键点击并按住将所有文件上传到OBS Browser中所在的文件夹 <strong>（再确认下，应上传到路径</strong><code>obs://skp-har-neu-xwt/skp-har/code/models-v1.5.0/official/cv/openpose_multi_save2obs_for_recurrence/</code><strong>之下）。</strong></p>
 <h4 id="4114-步骤4创建训练作业">4.1.1.4. 步骤4：创建训练作业</h4>
 <p>打开ModelArts-管理控制台，在左侧菜单栏依次点击“训练管理”-&gt;“训练作业（New）”，然后在右上方的输入框中输入<code>openpose_multi_save2obs_for_recurrence_3</code>，鼠标点击输入框右侧的搜索按钮，可搜索到指定的训练作业（若出现意外情况导致搜索不到，也可以使用字符串进行模糊搜索，然后和下图比较即可）。搜索结果如下图所示：</p>
-<p><img src="file:///e:\Data\Personals\NortheasternUniversity\3-3-\大数据班的实训\大作业\readme.md\images\%E8%AE%AD%E7%BB%83%E6%96%B9%E5%BC%8F1%EF%BC%9A%E8%AE%AD%E7%BB%83%E4%BD%9C%E4%B8%9A%E6%90%9C%E7%B4%A2%E7%BB%93%E6%9E%9C.png" alt="训练方式1：训练作业搜索结果"></p>
+<p><img src="file:///e:\Data\Personals\NortheasternUniversity\3-3-\大数据班的实训\小作业\readme.md-上传到github\images\%E8%AE%AD%E7%BB%83%E6%96%B9%E5%BC%8F1%EF%BC%9A%E8%AE%AD%E7%BB%83%E4%BD%9C%E4%B8%9A%E6%90%9C%E7%B4%A2%E7%BB%93%E6%9E%9C.png" alt="训练方式1：训练作业搜索结果"></p>
 <p>点击该训练作业项所在行右侧的“重建”按钮，进入训练作业配置界面。若无其他要求，可直接点击右下角红底白字的提交按钮，然后进入下一步骤。</p>
 <h4 id="4115-步骤5等待训练完成">4.1.1.5. 步骤5：等待训练完成</h4>
 <p>训练完成后，若上一步骤未修改训练作业信息，则可以到OBS中查看训练日志和训练生成的模型文件。</p>
@@ -634,11 +634,11 @@ result_path = train_path + <span class="hljs-string">&#x27;/&#x27;</span> + <spa
 <p>此步骤可以省略，我设置的默认是2个epoch。</p>
 <h4 id="4123-步骤3上传到obs">4.1.2.3. 步骤3：上传到OBS</h4>
 <p>打开OBS Browser，在地址栏输入<code>obs://skp-har-neu-xwt/skp-har/code/models-v1.5.0/official/cv/openpose_multi_save2obs_for_recurrence2/</code>，然后回车，即可进入目标文件夹。 <strong>（🔺注意：路径的末尾一定要有反斜杠符号/！！！！！！！）</strong> 文件夹的内容大致如下图所示：</p>
-<p><img src="file:///e:\Data\Personals\NortheasternUniversity\3-3-\大数据班的实训\大作业\readme.md\images\%E8%AE%AD%E7%BB%83%E6%96%B9%E5%BC%8F2%EF%BC%9AOBS%E7%9B%AE%E6%A0%87%E6%96%87%E4%BB%B6%E5%A4%B9%E7%9A%84%E5%86%85%E5%AE%B9.png" alt="训练方式2：OBS目标文件夹的内容"></p>
+<p><img src="file:///e:\Data\Personals\NortheasternUniversity\3-3-\大数据班的实训\小作业\readme.md-上传到github\images\%E8%AE%AD%E7%BB%83%E6%96%B9%E5%BC%8F2%EF%BC%9AOBS%E7%9B%AE%E6%A0%87%E6%96%87%E4%BB%B6%E5%A4%B9%E7%9A%84%E5%86%85%E5%AE%B9.png" alt="训练方式2：OBS目标文件夹的内容"></p>
 <p>进入解压所得到的名为<code>openpose_multi_save2obs_for_recurrence2 多卡不接续训练且直接保存到OBS</code>的新文件夹，选中该文件夹内的所有文件，左键点击并按住将所有文件上传到OBS Browser中所在的文件夹 <strong>（再确认下，应上传到路径</strong><code>obs://skp-har-neu-xwt/skp-har/code/models-v1.5.0/official/cv/openpose_multi_save2obs_for_recurrence2/</code><strong>之下）。</strong></p>
 <h4 id="4124-步骤4创建训练作业">4.1.2.4. 步骤4：创建训练作业</h4>
 <p>打开ModelArts-管理控制台，在左侧菜单栏依次点击“训练管理”-&gt;“训练作业（New）”，然后在右上方的输入框中输入<code>openpose_multi_save2obs_for_recurrence2_1</code>，鼠标点击输入框右侧的搜索按钮，可搜索到指定的训练作业（若出现意外情况导致搜索不到，也可以使用从第一个字符开始的多个连续字符串进行模糊搜索，然后和下图比较即可）。搜索结果如下图所示：</p>
-<p><img src="file:///e:\Data\Personals\NortheasternUniversity\3-3-\大数据班的实训\大作业\readme.md\images\%E8%AE%AD%E7%BB%83%E6%96%B9%E5%BC%8F2%EF%BC%9A%E8%AE%AD%E7%BB%83%E4%BD%9C%E4%B8%9A%E6%90%9C%E7%B4%A2%E7%BB%93%E6%9E%9C.png" alt="训练方式2：训练作业搜索结果"></p>
+<p><img src="file:///e:\Data\Personals\NortheasternUniversity\3-3-\大数据班的实训\小作业\readme.md-上传到github\images\%E8%AE%AD%E7%BB%83%E6%96%B9%E5%BC%8F2%EF%BC%9A%E8%AE%AD%E7%BB%83%E4%BD%9C%E4%B8%9A%E6%90%9C%E7%B4%A2%E7%BB%93%E6%9E%9C.png" alt="训练方式2：训练作业搜索结果"></p>
 <p>点击该训练作业项所在行右侧的“重建”按钮，进入训练作业配置界面。若无其他要求，可直接点击右下角红底白字的提交按钮，然后进入下一步骤。</p>
 <h4 id="4125-步骤5等待训练完成">4.1.2.5. 步骤5：等待训练完成</h4>
 <p>训练完成后，若上一步骤未修改训练作业信息，则可以到OBS中查看训练日志和训练生成的模型文件。</p>
@@ -652,11 +652,11 @@ result_path = train_path + <span class="hljs-string">&#x27;/&#x27;</span> + <spa
 <p>此步骤可以省略，我设置的默认是2个epoch。</p>
 <h4 id="4133-步骤3上传到obs">4.1.3.3. 步骤3：上传到OBS</h4>
 <p>打开OBS Browser，在地址栏输入<code>obs://skp-har-neu-xwt/skp-har/code/models-v1.5.0/official/cv/openpose_multi_save2obs_for_recurrence4/</code>，然后回车，即可进入目标文件夹。 <strong>（🔺注意：路径的末尾一定要有反斜杠符号/！！！！！！！）</strong> 文件夹的内容大致如下图所示：</p>
-<p><img src="file:///e:\Data\Personals\NortheasternUniversity\3-3-\大数据班的实训\大作业\readme.md\images\%E8%AE%AD%E7%BB%83%E6%96%B9%E5%BC%8F3%EF%BC%9AOBS%E7%9B%AE%E6%A0%87%E6%96%87%E4%BB%B6%E5%A4%B9%E7%9A%84%E5%86%85%E5%AE%B9.png" alt="训练方式3：OBS目标文件夹的内容"></p>
+<p><img src="file:///e:\Data\Personals\NortheasternUniversity\3-3-\大数据班的实训\小作业\readme.md-上传到github\images\%E8%AE%AD%E7%BB%83%E6%96%B9%E5%BC%8F3%EF%BC%9AOBS%E7%9B%AE%E6%A0%87%E6%96%87%E4%BB%B6%E5%A4%B9%E7%9A%84%E5%86%85%E5%AE%B9.png" alt="训练方式3：OBS目标文件夹的内容"></p>
 <p>进入解压所得到的名为<code>openpose_multi_save2obs_for_recurrence4 单卡实现接续训练且直接保存到OBS</code>的新文件夹，选中该文件夹内的所有文件，左键点击并按住将所有文件上传到OBS Browser中所在的文件夹 <strong>（再确认下，应上传到路径</strong><code>obs://skp-har-neu-xwt/skp-har/code/models-v1.5.0/official/cv/openpose_multi_save2obs_for_recurrence4/</code><strong>之下）。</strong></p>
 <h4 id="4134-步骤4创建训练作业">4.1.3.4. 步骤4：创建训练作业</h4>
 <p>打开ModelArts-管理控制台，在左侧菜单栏依次点击“训练管理”-&gt;“训练作业（New）”，然后在右上方的输入框中输入<code>openpose_multi_save2obs_for_recurrence4_1</code>，鼠标点击输入框右侧的搜索按钮，可搜索到指定的训练作业（若出现意外情况导致搜索不到，也可以使用从第一个字符开始的多个连续字符串进行模糊搜索，然后和下图比较即可）。搜索结果如下图所示：</p>
-<p><img src="file:///e:\Data\Personals\NortheasternUniversity\3-3-\大数据班的实训\大作业\readme.md\images\%E8%AE%AD%E7%BB%83%E6%96%B9%E5%BC%8F3%EF%BC%9A%E8%AE%AD%E7%BB%83%E4%BD%9C%E4%B8%9A%E6%90%9C%E7%B4%A2%E7%BB%93%E6%9E%9C.png" alt="训练方式3：训练作业搜索结果"></p>
+<p><img src="file:///e:\Data\Personals\NortheasternUniversity\3-3-\大数据班的实训\小作业\readme.md-上传到github\images\%E8%AE%AD%E7%BB%83%E6%96%B9%E5%BC%8F3%EF%BC%9A%E8%AE%AD%E7%BB%83%E4%BD%9C%E4%B8%9A%E6%90%9C%E7%B4%A2%E7%BB%93%E6%9E%9C.png" alt="训练方式3：训练作业搜索结果"></p>
 <p>点击该训练作业项所在行右侧的“重建”按钮，进入训练作业配置界面。若无其他要求，可直接点击右下角红底白字的提交按钮，然后进入下一步骤。</p>
 <h4 id="4135-步骤5等待训练完成">4.1.3.5. 步骤5：等待训练完成</h4>
 <p>训练完成后，若上一步骤未修改训练作业信息，则可以到OBS中查看训练日志和训练生成的模型文件。</p>
@@ -670,11 +670,11 @@ result_path = train_path + <span class="hljs-string">&#x27;/&#x27;</span> + <spa
 <p>此步骤可以省略，我设置的默认是2个epoch。</p>
 <h4 id="4143-步骤3上传到obs">4.1.4.3. 步骤3：上传到OBS</h4>
 <p>打开OBS Browser，在地址栏输入<code>obs://skp-har-neu-xwt/skp-har/code/models-v1.5.0/official/cv/openpose_multi_save2obs_for_recurrence5/</code>，然后回车，即可进入目标文件夹。 <strong>（🔺注意：路径的末尾一定要有反斜杠符号/！！！！！！！）</strong> 文件夹的内容大致如下图所示：</p>
-<p><img src="file:///e:\Data\Personals\NortheasternUniversity\3-3-\大数据班的实训\大作业\readme.md\images\%E8%AE%AD%E7%BB%83%E6%96%B9%E5%BC%8F4%EF%BC%9AOBS%E7%9B%AE%E6%A0%87%E6%96%87%E4%BB%B6%E5%A4%B9%E7%9A%84%E5%86%85%E5%AE%B9.png" alt="训练方式4：OBS目标文件夹的内容"></p>
+<p><img src="file:///e:\Data\Personals\NortheasternUniversity\3-3-\大数据班的实训\小作业\readme.md-上传到github\images\%E8%AE%AD%E7%BB%83%E6%96%B9%E5%BC%8F4%EF%BC%9AOBS%E7%9B%AE%E6%A0%87%E6%96%87%E4%BB%B6%E5%A4%B9%E7%9A%84%E5%86%85%E5%AE%B9.png" alt="训练方式4：OBS目标文件夹的内容"></p>
 <p>进入解压所得到的名为<code>openpose_multi_save2obs_for_recurrence5 多卡实现接续训练直接保存到OBS</code>的新文件夹，选中该文件夹内的所有文件，左键点击并按住将所有文件上传到OBS Browser中所在的文件夹 <strong>（再确认下，应上传到路径</strong><code>obs://skp-har-neu-xwt/skp-har/code/models-v1.5.0/official/cv/openpose_multi_save2obs_for_recurrence5/</code><strong>之下）。</strong></p>
 <h4 id="4144-步骤4创建训练作业">4.1.4.4. 步骤4：创建训练作业</h4>
 <p>打开ModelArts-管理控制台，在左侧菜单栏依次点击“训练管理”-&gt;“训练作业（New）”，然后在右上方的输入框中输入<code>openpose_multi_save2obs_for_recurrence5_2</code>，鼠标点击输入框右侧的搜索按钮，可搜索到指定的训练作业（若出现意外情况导致搜索不到，也可以使用从第一个字符开始的多个连续字符串进行模糊搜索，然后和下图比较即可）。搜索结果如下图所示：</p>
-<p><img src="file:///e:\Data\Personals\NortheasternUniversity\3-3-\大数据班的实训\大作业\readme.md\images\%E8%AE%AD%E7%BB%83%E6%96%B9%E5%BC%8F4%EF%BC%9A%E8%AE%AD%E7%BB%83%E4%BD%9C%E4%B8%9A%E6%90%9C%E7%B4%A2%E7%BB%93%E6%9E%9C.png" alt="训练方式4：训练作业搜索结果"></p>
+<p><img src="file:///e:\Data\Personals\NortheasternUniversity\3-3-\大数据班的实训\小作业\readme.md-上传到github\images\%E8%AE%AD%E7%BB%83%E6%96%B9%E5%BC%8F4%EF%BC%9A%E8%AE%AD%E7%BB%83%E4%BD%9C%E4%B8%9A%E6%90%9C%E7%B4%A2%E7%BB%93%E6%9E%9C.png" alt="训练方式4：训练作业搜索结果"></p>
 <p>点击该训练作业项所在行右侧的“重建”按钮，进入训练作业配置界面。若无其他要求，可直接点击右下角红底白字的提交按钮，然后进入下一步骤。</p>
 <h4 id="4145-步骤5等待训练完成">4.1.4.5. 步骤5：等待训练完成</h4>
 <p>训练完成后，若上一步骤未修改训练作业信息，则可以到OBS中查看训练日志和训练生成的模型文件。</p>
@@ -691,30 +691,30 @@ result_path = train_path + <span class="hljs-string">&#x27;/&#x27;</span> + <spa
 <p>进入后大概是这个界面：!odelArts-管理控制台界面示例](./images/ModelArts-管理控制台界面示例.png)</p>
 <h3 id="423-步骤3创建训练作业">4.2.3. 步骤3：创建训练作业</h3>
 <p>就完成推理代码而言，创建训练作业有多种方法，这里避免配置各种属性，选择介绍最简单方便的一种</p>
-<!-- <img src="file:///e:\Data\Personals\NortheasternUniversity\3-3-\大数据班的实训\大作业\readme.md\%E7%8E%8B%E9%81%93408%E2%80%94%E2%80%94%E8%AE%A1%E7%BD%91ohohohohoh.assets\image-20220427112038455.png" alt="image-20220427112038455" style="zoom:50%;" />
+<!-- <img src="file:///e:\Data\Personals\NortheasternUniversity\3-3-\大数据班的实训\小作业\readme.md-上传到github\%E7%8E%8B%E9%81%93408%E2%80%94%E2%80%94%E8%AE%A1%E7%BD%91ohohohohoh.assets\image-20220427112038455.png" alt="image-20220427112038455" style="zoom:50%;" />
 ![1](./images/1.png) -->
 <ul>
 <li>进入“训练作业”界面
 当前应处于“ModelArts-管理控制台”界面，即步骤1所示界面。点击左侧导航栏的“训练管理”，在展开的二级菜单中点击“训练作业（New）”*<em>（注意要点击带New的那个“训练作业”选项），在右边可以查看到所有的训练作业，如下图所示。
 <em>（🔺注意：可能会有多个训练作业，首先可和下图中训练作业项的“描述”列的内容进行比较，找具有相同描述内容的项；其次可以和下图的项比较创建时间、运行时长等列）</em></em></li>
 </ul>
-<p><img src="file:///e:\Data\Personals\NortheasternUniversity\3-3-\大数据班的实训\大作业\readme.md\images\%E6%89%80%E6%9C%89%E7%9A%84%E8%AE%AD%E7%BB%83%E4%BD%9C%E4%B8%9A%E7%95%8C%E9%9D%A2%E7%A4%BA%E4%BE%8B.png" alt="所有的训练作业界面示例"></p>
+<p><img src="file:///e:\Data\Personals\NortheasternUniversity\3-3-\大数据班的实训\小作业\readme.md-上传到github\images\%E6%89%80%E6%9C%89%E7%9A%84%E8%AE%AD%E7%BB%83%E4%BD%9C%E4%B8%9A%E7%95%8C%E9%9D%A2%E7%A4%BA%E4%BE%8B.png" alt="所有的训练作业界面示例"></p>
 <p>目光移向当前界面的右上方，可以看到有横向排列的“只看自己”、“高级搜索”、查询输入框、无文字的刷新按钮、无文字的设置按钮等组件。在查询输入框里，输入<code>opps_ms15_eval_for_recurrence1_2</code>，然后搜索，搜索结果界面如下图所示：</p>
-<p><img src="file:///e:\Data\Personals\NortheasternUniversity\3-3-\大数据班的实训\大作业\readme.md\images\%E6%90%9C%E7%B4%A2%E7%BB%93%E6%9E%9C%E7%95%8C%E9%9D%A2.png" alt="搜索结果界面"></p>
+<p><img src="file:///e:\Data\Personals\NortheasternUniversity\3-3-\大数据班的实训\小作业\readme.md-上传到github\images\%E6%90%9C%E7%B4%A2%E7%BB%93%E6%9E%9C%E7%95%8C%E9%9D%A2.png" alt="搜索结果界面"></p>
 <p>表格中只有一项，该项最右侧有“删除”、“重建”和“终止”三个按钮，点击“重建”按钮，进入如下界面：</p>
-<p><img src="file:///e:\Data\Personals\NortheasternUniversity\3-3-\大数据班的实训\大作业\readme.md\images\%E7%82%B9%E5%87%BB%E2%80%9C%E9%87%8D%E5%BB%BA%E2%80%9D%E6%8C%89%E9%92%AE%E5%90%8E%E8%BF%9B%E5%85%A5%E7%9A%84%E7%95%8C%E9%9D%A2.png" alt="点击“重建”按钮后进入的界面"></p>
+<p><img src="file:///e:\Data\Personals\NortheasternUniversity\3-3-\大数据班的实训\小作业\readme.md-上传到github\images\%E7%82%B9%E5%87%BB%E2%80%9C%E9%87%8D%E5%BB%BA%E2%80%9D%E6%8C%89%E9%92%AE%E5%90%8E%E8%BF%9B%E5%85%A5%E7%9A%84%E7%95%8C%E9%9D%A2.png" alt="点击“重建”按钮后进入的界面"></p>
 <p>在该界面从下往上看，依次找到“故障自动重启”、“环境变量”和“超参”，其中，“超参”后面只有一个参数待设置。在待设置的超参“target_action_type”后面的输入框中，输入<code>climb_up</code>或者<code>climb_over_fence</code>，这两种情况分别对应“攀爬”和“翻越护栏”两个场景的数据集。（超参下方我也有设置灰色的提示字体）</p>
 <h3 id="424-步骤4提交训练作业">4.2.4. 步骤4：提交训练作业</h3>
 <p>创建完训练作业后，点击右下角的红底白字的带有“提交”二字的按钮，再点击弹出框的“确定”按钮，即可提交作业。提交后，可以看到顶部新增了一项作业，并且状态为“等待中”。</p>
 <p>弹出框如下所示：</p>
-<p><img src="file:///e:\Data\Personals\NortheasternUniversity\3-3-\大数据班的实训\大作业\readme.md\images\%E5%BC%B9%E5%87%BA%E6%A1%86.png" alt="弹出框"></p>
+<p><img src="file:///e:\Data\Personals\NortheasternUniversity\3-3-\大数据班的实训\小作业\readme.md-上传到github\images\%E5%BC%B9%E5%87%BA%E6%A1%86.png" alt="弹出框"></p>
 <p>点击弹出框中的“确定”按钮后的界面如下所示：</p>
-<p><img src="file:///e:\Data\Personals\NortheasternUniversity\3-3-\大数据班的实训\大作业\readme.md\images\%E7%82%B9%E5%87%BB%E5%BC%B9%E5%87%BA%E6%A1%86%E4%B8%AD%E7%9A%84%E7%A1%AE%E8%AE%A4%E6%8C%89%E9%92%AE%E5%90%8E%E8%BF%9B%E5%85%A5%E7%9A%84%E7%95%8C%E9%9D%A2.png" alt="点击弹出框中的确认按钮后进入的界面"></p>
+<p><img src="file:///e:\Data\Personals\NortheasternUniversity\3-3-\大数据班的实训\小作业\readme.md-上传到github\images\%E7%82%B9%E5%87%BB%E5%BC%B9%E5%87%BA%E6%A1%86%E4%B8%AD%E7%9A%84%E7%A1%AE%E8%AE%A4%E6%8C%89%E9%92%AE%E5%90%8E%E8%BF%9B%E5%85%A5%E7%9A%84%E7%95%8C%E9%9D%A2.png" alt="点击弹出框中的确认按钮后进入的界面"></p>
 <h3 id="425-步骤5等待作业运行结束">4.2.5. 步骤5：等待作业运行结束</h3>
 <p>到这一步了，就还需要花费一丢丢宝贵的时间等待运行结束哈哈，好奇的话可以点击蓝色的作业名称后，在新界面的右侧查看输出的日志。</p>
 <h3 id="426-步骤6查看结果">4.2.6. 步骤6：查看结果</h3>
 <p>待该项训练作业的状态变为“已完成”后，通过OBS Browser客户端，或者OBS网页端进入OBS查看输出结果。在OBS中的路径为<code>obs://skp-har-neu-xwt/skp-har/code/models-v1.5.0/official/cv/openpose_ms15_test_for_recurrence1/output_img/</code>。该路径下，有多个形如<code>output_img*</code>的文件夹，区别在于末尾的时间戳，如下图所示。点击最大的时间戳对应的文件夹，进入后，就可以查看推理的结果啦！推理结果文件也是有特殊安排滴！设原图命名为<code>FILENAME.jpg</code>，则推理后与之相对应的渲染后的图片命名为<code>FILENAME_rendered.jpg</code>。<strong>（此处建议先按照文件名称顺序或者逆序排序后，再查看文件）</strong></p>
-<p><img src="file:///e:\Data\Personals\NortheasternUniversity\3-3-\大数据班的实训\大作业\readme.md\images\%E6%8E%A8%E7%90%86%E7%BB%93%E6%9E%9C%E6%96%87%E4%BB%B6%E5%88%97%E8%A1%A8.png" alt="推理结果文件列表"></p>
+<p><img src="file:///e:\Data\Personals\NortheasternUniversity\3-3-\大数据班的实训\小作业\readme.md-上传到github\images\%E6%8E%A8%E7%90%86%E7%BB%93%E6%9E%9C%E6%96%87%E4%BB%B6%E5%88%97%E8%A1%A8.png" alt="推理结果文件列表"></p>
 <h1 id="5-改进指导">5. <strong>改进指导</strong></h1>
 <h2 id="51-训练代码">5.1. <strong>训练代码</strong></h2>
 <hr>
@@ -890,7 +890,7 @@ neck_r_waist_line_degree = <span class="hljs-number">90</span> - neck_r_waist_li
 <p><strong>我现在的猜测</strong></p>
 <p>但是，我在7月18日上午，做了一种新的实验。把训练作业中，拷贝数据的语句<code>mox.file.copy_parallel()</code><strong>注释掉</strong>，把“数据拷贝”、“数据集创建”、“模型训练”、“训练完成后保存air格式的模型文件”、“把文件从训练环境拷贝到obs里”等步骤<strong>注释掉</strong>，<strong>只保留</strong>从“检查路径正误”到“创建网络模型对象”的内容。</p>
 <p>用于实验的train_start.py文件的内容如下图所示：</p>
-<p><img src="file:///e:\Data\Personals\NortheasternUniversity\3-3-\大数据班的实训\大作业\readme.md\images\%E7%94%A8%E4%BA%8E%E5%AE%9E%E9%AA%8C%E7%9A%84train_start.py%E6%96%87%E4%BB%B6%E7%9A%84%E5%86%85%E5%AE%B9.png" alt="用于实验的train_start.py文件的内容"></p>
+<p><img src="file:///e:\Data\Personals\NortheasternUniversity\3-3-\大数据班的实训\小作业\readme.md-上传到github\images\%E7%94%A8%E4%BA%8E%E5%AE%9E%E9%AA%8C%E7%9A%84train_start.py%E6%96%87%E4%BB%B6%E7%9A%84%E5%86%85%E5%AE%B9.png" alt="用于实验的train_start.py文件的内容"></p>
 <p>直接按照红色框进行定位，定位到“create dataset”这一行。同时关注蓝色框框起来的mox.file.copy_parallel()方法。做的改动：</p>
 <ul>
 <li>把该行以下的内容全部注释掉。</li>
